@@ -1,0 +1,4 @@
+Flask
+obsidian-apo
+pandas
+numpy
