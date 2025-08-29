@@ -6,12 +6,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #ffffff;
-    color: #333;
+    color: #0056b3;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    padding-top: 4rem;
+    padding-top: 2rem;
 }
 
 .App {
@@ -22,95 +22,174 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    color: #2c3e50;
+    color: #0056b3;
     margin-bottom: 2rem;
     font-weight: 600;
 }
 
 .card {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    border: 1px solid #0056b3;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
     text-align: left;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
     font-size: 1.25rem;
-    color: #2c3e50;
+    color: #0056b3;
     margin-top: 0;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #0056b3;
+    padding-bottom: 0.5rem;
 }
 
+h3 {
+    font-size: 1.1rem;
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #0056b3;
+    padding-bottom: 0.5rem;
+}
+/* Well Plate Styles */
+.plate-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #0056b3;
+}
+
+.plate-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.well {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.well-position {
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.well:hover .well-tooltip {
+    display: block;
+}
+
+.well-tooltip {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    border: 1px solid #0056b3;
+    padding: 8px;
+    z-index: 10;
+    min-width: 150px;
+    color: #0056b3;
+}
+
+.tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.tooltip-key {
+    font-weight: bold;
+    margin-right: 8px;
+}
 input[type="file"] {
     display: block;
-    width: calc(100% - 24px);
+    width: calc(90%);
     margin-bottom: 1rem;
     padding: 12px;
-    border-radius: 8px;
-    border: 1px dashed #ccc;
-    background-color: #fdfdfd;
-    color: #333;
+    border-radius: 0;
+    border: 1px solid #0056b3;
+    background-color: #ffffff;
+    color: #0056b3;
     cursor: pointer;
+}
+
+input[type="text"],
+input[type="number"] {
+    display: block;
+    width: calc(90%);
+    margin-bottom: 1rem;
+    padding: 12px;
+    border-radius: 0;
+    border: 1px solid #0056b3;
+    background-color: #ffffff;
+    color: #0056b3;
+    cursor: text;
 }
 
 button {
     width: 100%;
-    padding: 0.8em 1.5em;
+    padding: 0.6em 0.8em;
     font-size: 1em;
     font-weight: 600;
     color: #ffffff;
-    background: linear-gradient(90deg, #5e72e4, #825ee4);
+    background-color: #0056b3;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     cursor: pointer;
-    transition: opacity 0.25s;
+    transition: background-color 0.2s;
 }
 
 button:hover {
-    opacity: 0.9;
+    background-color: #003d80;
 }
 
 .message {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     padding: 1rem;
-    border-radius: 8px;
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    color: #333;
+    background-color: #0056b3;
+    border: 1px solid #0056b3;
+    color: #ffffff;
     white-space: pre-wrap;
     word-wrap: break-word;
 }
 
 .results {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 2rem;
+    border: 1px solid #0056b3;
+    padding: 1.5rem;
     text-align: left;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .results h2 {
     font-size: 1.5rem;
-    color: #2c3e50;
+    color: #0056b3;
     margin-top: 0;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #0056b3;
+    padding-bottom: 0.5rem;
 }
 
 .results pre {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     padding: 1rem;
-    border-radius: 8px;
+    border: 1px solid #0056b3;
     white-space: pre-wrap;
     word-wrap: break-word;
-    color: #212529;
+    color: #0056b3;
     font-family: "Fira Code", "Courier New", monospace;
     font-size: 0.9em;
 }
@@ -118,23 +197,106 @@ button:hover {
 .main-container {
     display: flex;
     gap: 2rem;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .controls-container {
-    flex: 1;
+    width: 400px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #0056b3;
+}
+
+.workspace-container {
+    flex-grow: 1;
+    height: 80vh;
+    width: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border: 1px solid #0056b3;
 }
 
 .visualizer-container {
-    flex: 2;
+    margin-bottom: 2rem;
+}
+
+.workspace-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    color: #0056b3;
+    border: 1px solid #0056b3;
+    padding: 2rem;
+}
+
+.accordion-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-header h2 {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.accordion-panel {
+    padding-top: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding-top 0.3s ease-in-out;
+}
+
+.accordion-panel.open {
+    max-height: 100%;
+    padding-top: 1.5rem;
+}
+
+.accordion-item.card {
+    padding: 1rem 1.5rem;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid #0056b3;
+}
+
+.accordion {
+    border: 1px solid #0056b3;
+    overflow: hidden;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-item.card:last-child {
+    border-bottom: none;
+}
+
+.accordion-arrow {
+    border: solid #0056b3;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.accordion-arrow.down {
+    transform: rotate(45deg);
+}
+
+.accordion-arrow.right {
+    transform: rotate(-45deg);
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(255, 255, 255, 0.3);
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border-left-color: #5e72e4;
+    border-left-color: #ffffff;
     animation: spin 1s ease infinite;
     display: inline-block;
     vertical-align: middle;

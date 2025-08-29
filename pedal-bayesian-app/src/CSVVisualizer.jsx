@@ -33,7 +33,7 @@ const CSVVisualizer = ({ file }) => {
             style={{
                 maxHeight: "400px",
                 overflow: "auto",
-                border: "1px solid #ccc",
+                border: "1px solid #0056b3",
                 marginTop: "1rem",
             }}
         >
@@ -44,10 +44,12 @@ const CSVVisualizer = ({ file }) => {
                             <th
                                 key={header}
                                 style={{
-                                    border: "1px solid #ddd",
+                                    border: "1px solid #0056b3",
                                     padding: "8px",
                                     textAlign: "left",
-                                    backgroundColor: "#f2f2f2",
+                                    backgroundColor: "#ffffff",
+                                    color: "#0056b3",
+                                    fontWeight: "600",
                                 }}
                             >
                                 {header}
@@ -62,8 +64,9 @@ const CSVVisualizer = ({ file }) => {
                                 <td
                                     key={header}
                                     style={{
-                                        border: "1px solid #ddd",
+                                        border: "1px solid #0056b3",
                                         padding: "8px",
+                                        color: "#000000",
                                     }}
                                 >
                                     {row[header]}
