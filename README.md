@@ -15,3 +15,5 @@ python app.py
 
 To run the frontend, navigate to the frontend directory and run:
 npm run dev
+
+Navigate to localhost:5173 and you should find the application.
