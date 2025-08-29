@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import ScatterPlot from "../ScatterPlot";
+import "./Table.css";
 
 const Table = ({ wells }) => {
+    const [showScatterPlot, setShowScatterPlot] = useState(false);
+    const [selectedColumn, setSelectedColumn] = useState(null);
+    const [targetColumn, setTargetColumn] = useState(null);
     // Process wells data to ensure proper structure
     const processedWells = wells.map((well, index) => {
         // Create position identifier if not present
@@ -37,6 +42,29 @@ const Table = ({ wells }) => {
         return Array.from(directProps);
     };
 
+    // Handle column header click to show scatter plot
+    const handleColumnClick = (columnName) => {
+        // If clicking on the currently selected target column, deselect it
+        if (targetColumn === columnName) {
+            setTargetColumn(null);
+            return;
+        }
+
+        // If we have a target column set, show scatter plot between target and selected column
+        if (targetColumn) {
+            setSelectedColumn(columnName);
+            setShowScatterPlot(true);
+        } else {
+            // If no target column set, set it as target
+            setTargetColumn(columnName);
+        }
+    };
+
+    // Close scatter plot modal
+    const handleCloseScatterPlot = () => {
+        setShowScatterPlot(false);
+    };
+
     // Extract all parameter keys from the wells
     const getParameterKeys = () => {
         const keys = new Set();
@@ -53,29 +81,67 @@ const Table = ({ wells }) => {
 
     return (
         <div className="wells-table-container">
-            <div
-                className="table-container"
-                style={{
-                    maxHeight: "400px",
-                    overflow: "auto",
-                    border: "1px solid #0056b3",
-                    marginTop: "1rem",
-                    marginBottom: "1rem",
-                }}
-            >
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            {showScatterPlot && selectedColumn && targetColumn && (
+                <ScatterPlot
+                    wells={processedWells}
+                    selectedColumn={selectedColumn}
+                    targetColumn={targetColumn}
+                    onClose={handleCloseScatterPlot}
+                />
+            )}
+            {targetColumn && (
+                <div className="selected-column-info">
+                    <p>
+                        Selected target column: <strong>{targetColumn}</strong>{" "}
+                        (click again to deselect)
+                    </p>
+                    <p>Click another column to compare with {targetColumn}</p>
+                </div>
+            )}
+            <div className="table-container">
+                <table className="data-table">
                     <thead>
                         <tr>
-                            <th style={tableHeaderStyle}>Well ID</th>
-                            <th style={tableHeaderStyle}>Row</th>
-                            <th style={tableHeaderStyle}>Column</th>
+                            <th>Well ID</th>
+                            <th>Row</th>
+                            <th>Column</th>
                             {directProperties.map((prop) => (
-                                <th key={prop} style={tableHeaderStyle}>
+                                <th
+                                    key={prop}
+                                    className={`column-header ${
+                                        targetColumn === prop
+                                            ? "selected-column"
+                                            : ""
+                                    }`}
+                                    onClick={() => handleColumnClick(prop)}
+                                    title={
+                                        targetColumn === prop
+                                            ? `${prop} is set as target column. Click another column to compare.`
+                                            : `Click to set as target or compare with ${
+                                                  targetColumn || "target"
+                                              }`
+                                    }
+                                >
                                     {prop}
                                 </th>
                             ))}
                             {parameterKeys.map((key) => (
-                                <th key={key} style={tableHeaderStyle}>
+                                <th
+                                    key={key}
+                                    className={`column-header ${
+                                        targetColumn === key
+                                            ? "selected-column"
+                                            : ""
+                                    }`}
+                                    onClick={() => handleColumnClick(key)}
+                                    title={
+                                        targetColumn === key
+                                            ? `${key} is set as target column. Click another column to compare.`
+                                            : `Click to set as target or compare with ${
+                                                  targetColumn || "target"
+                                              }`
+                                    }
+                                >
                                     {key}
                                 </th>
                             ))}
@@ -84,11 +150,11 @@ const Table = ({ wells }) => {
                     <tbody>
                         {processedWells.map((well, index) => (
                             <tr key={index}>
-                                <td style={tableCellStyle}>{well.id}</td>
-                                <td style={tableCellStyle}>{well.row}</td>
-                                <td style={tableCellStyle}>{well.col}</td>
+                                <td className="table-cell">{well.id}</td>
+                                <td className="table-cell">{well.row}</td>
+                                <td className="table-cell">{well.col}</td>
                                 {directProperties.map((prop) => (
-                                    <td key={prop} style={tableCellStyle}>
+                                    <td key={prop} className="table-cell">
                                         {well[prop] !== undefined &&
                                         well[prop] !== null
                                             ? typeof well[prop] === "number"
@@ -98,12 +164,14 @@ const Table = ({ wells }) => {
                                     </td>
                                 ))}
                                 {parameterKeys.map((key) => (
-                                    <td key={key} style={tableCellStyle}>
+                                    <td key={key} className="table-cell">
                                         {well.parameters[key] !== undefined &&
                                         well.parameters[key] !== null
                                             ? typeof well.parameters[key] ===
                                               "number"
-                                                ? well.parameters[key].toFixed(4)
+                                                ? well.parameters[key].toFixed(
+                                                      4
+                                                  )
                                                 : String(well.parameters[key])
                                             : "-"}
                                     </td>
@@ -117,20 +185,6 @@ const Table = ({ wells }) => {
     );
 };
 
-// Styles for table elements matching CSV visualizer
-const tableHeaderStyle = {
-    border: "1px solid #0056b3",
-    padding: "8px",
-    textAlign: "left",
-    backgroundColor: "#ffffff",
-    color: "#0056b3",
-    fontWeight: "600",
-};
-
-const tableCellStyle = {
-    border: "1px solid #0056b3",
-    padding: "8px",
-    color: "#000000",
-};
+// Styles for table elements are now in Table.css
 
 export default Table;

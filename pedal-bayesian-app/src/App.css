@@ -320,6 +320,77 @@ button:hover {
     background-color: #ffffff;
 }
 
+/* ScatterPlot Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.scatter-plot-modal {
+    background-color: #ffffff;
+    border: 2px solid #0056b3;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scatter-plot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #0056b3;
+}
+
+.scatter-plot-header h3 {
+    margin: 0;
+    color: #0056b3;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #0056b3;
+    cursor: pointer;
+    width: auto;
+    padding: 0 10px;
+}
+
+.close-button:hover {
+    color: #003d80;
+    background-color: transparent;
+}
+
+.scatter-plot-content {
+    padding: 1rem;
+}
+
+.correlation-info {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #f0f8ff;
+    border: 1px solid #0056b3;
+    color: #0056b3;
+}
+
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
 .histogram-header {
     display: flex;
     justify-content: space-between;

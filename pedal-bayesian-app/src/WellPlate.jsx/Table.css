@@ -1,0 +1,72 @@
+.wells-table-container {
+  margin: 20px 0;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #0056b3;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.data-table th {
+  border: 1px solid #0056b3;
+  padding: 10px;
+  text-align: left;
+  background-color: #f0f8ff;
+  color: #0056b3;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.column-header {
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.column-header:hover {
+  background-color: #e0f0ff !important;
+}
+
+.selected-column {
+  background-color: #0056b3 !important;
+  color: #ffffff !important;
+}
+
+.table-cell {
+  border: 1px solid #0056b3;
+  padding: 8px;
+  color: #000000;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+  background-color: #f0f0f0;
+}
+
+.selected-column-info {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f0f8ff;
+  border: 1px solid #0056b3;
+  border-radius: 4px;
+  color: #0056b3;
+}
+
+.selected-column-info p {
+  margin: 5px 0;
+}
