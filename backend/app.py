@@ -1,18 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import pandas as pd
 from bayesian_optimization import bayesian_optimization
 
-app = Flask(__name__) 
+app = Flask(__name__)
+CORS(app) 
 
 WORKSPACE_DIR = os.path.join(os.path.dirname(__file__), 'workspace')
 os.makedirs(WORKSPACE_DIR, exist_ok=True)
 
 workspace_file = ''
-
-@app.route('/api/hello')
-def hello_world():
-    return {'message': 'Hello from the Python backend!'}
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
@@ -34,7 +32,6 @@ def optimize():
     global workspace_file
     if not workspace_file or not os.path.exists(workspace_file):
         return {'error': 'No data file found. Please upload a CSV first.'}, 400
-    
     try:
         df = pd.read_csv(workspace_file)
         # Assuming 'yield' is the target column. You might want to make this configurable.

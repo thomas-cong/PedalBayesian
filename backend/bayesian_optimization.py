@@ -14,7 +14,7 @@ def parse_columns(df, target_column):
         if df[col].dtype == np.dtype('O'):
             params.append(Param_Categorical(name=col, categories=df[col].unique().tolist()))
         else:
-            params.append(Param_Continuous(name=col, min=int(df[col].min()), max=int(df[col].max())))
+            params.append(Param_Continuous(name=col, min=float(df[col].min()), max=float(df[col].max())))
     return params
 
 def bayesian_optimization(df, target_column, batch_size=96, fitted_model = None):
@@ -32,9 +32,11 @@ def bayesian_optimization(df, target_column, batch_size=96, fitted_model = None)
     print("Suggest process completed")
     return results
 
+
 if __name__ == '__main__':
-    df = pd.read_csv('/Users/tcong/PedalBayesian/backend/PedalSyntheticDataMock.csv')
+    df = pd.read_csv('SimplifiedSynthetic.csv')
+    print(parse_columns(df, 'yield'))
     suggested_experiments = bayesian_optimization(df, 'yield')
     print(suggested_experiments)
-    # print("Suggested Experiments:")
-    # print(suggested_experiments)
+    print("Suggested Experiments:")
+    print(suggested_experiments)

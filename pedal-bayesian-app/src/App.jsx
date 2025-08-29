@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./App.css";
+import CSVVisualizer from "./CSVVisualizer";
 
 function App() {
     const [file, setFile] = useState(null);
     const [message, setMessage] = useState("");
     const [results, setResults] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -36,9 +38,11 @@ function App() {
     };
 
     const handleOptimize = async () => {
+        setLoading(true);
         try {
             const response = await fetch("/api/optimize");
             const data = await response.json();
+            setLoading(false);
             if (response.ok) {
                 setResults(JSON.stringify(JSON.parse(data), null, 2));
                 setMessage("Optimization successful!");
@@ -53,14 +57,37 @@ function App() {
     return (
         <div className="App">
             <h1>Bayesian Optimization</h1>
-            <div className="card">
-                <h2>Upload CSV</h2>
-                <input type="file" accept=".csv" onChange={handleFileChange} />
-                <button onClick={handleUpload}>Upload</button>
-            </div>
-            <div className="card">
-                <h2>Run Optimization</h2>
-                <button onClick={handleOptimize}>Optimize</button>
+            <div className="main-container">
+                <div className="controls-container">
+                    <div className="card">
+                        <h2>Upload CSV</h2>
+                        <input
+                            type="file"
+                            accept=".csv"
+                            onChange={handleFileChange}
+                        />
+                        <button onClick={handleUpload}>Upload</button>
+                    </div>
+                    <div className="card">
+                        <h2>Run Optimization</h2>
+                        <button onClick={handleOptimize} disabled={loading}>
+                            {loading ? (
+                                <>
+                                    <div className="spinner"></div>
+                                    <span>Optimizing...</span>
+                                </>
+                            ) : (
+                                "Optimize"
+                            )}
+                        </button>
+                    </div>
+                </div>
+                {file && (
+                    <div className="visualizer-container card">
+                        <h2>Data</h2>
+                        <CSVVisualizer file={file} />
+                    </div>
+                )}
             </div>
             {message && <p className="message">{message}</p>}
             {results && (
