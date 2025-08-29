@@ -13,6 +13,7 @@ function App() {
     const [targetColumn, setTargetColumn] = useState("");
     const [batchSize, setBatchSize] = useState(96);
     const [plate, setPlate] = useState(null);
+    const [showPlate, setShowPlate] = useState(false);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -74,9 +75,9 @@ function App() {
             });
             const data = await response.json();
             if (response.ok) {
-                const parsedData = JSON.parse(data);
-                setPlate(parsedData);
-                setResults(JSON.stringify(parsedData, null, 2));
+                setPlate(data);
+                console.log(data);
+                setResults(JSON.stringify(data, null, 2));
                 setMessage("Optimization successful!");
                 setCurrentStep(4);
                 setOpenAccordions((prev) => [
@@ -91,6 +92,9 @@ function App() {
             setMessage(`Error: ${error.message}`);
             setLoading(false);
         }
+    };
+    const handleWellPropagation = () => {
+        setShowPlate(true);
     };
     // const handleOptimize = async () => {
     //     if (!targetColumn) {
@@ -288,7 +292,7 @@ function App() {
                                     className="accordion-header"
                                     onClick={() => toggleAccordion(4)}
                                 >
-                                    <h2>Propagate Wells</h2>
+                                    <h2>Well Propagation</h2>
                                     <span
                                         className={`accordion-arrow ${
                                             openAccordions.includes(4)
@@ -305,18 +309,8 @@ function App() {
                                                 : ""
                                         }`}
                                     >
-                                        <button
-                                            onClick={dummyOptimize}
-                                            disabled={loading}
-                                        >
-                                            {loading ? (
-                                                <>
-                                                    <div className="spinner"></div>
-                                                    <span>Optimizing...</span>
-                                                </>
-                                            ) : (
-                                                "Optimize"
-                                            )}
+                                        <button onClick={handleWellPropagation}>
+                                            {showPlate ? "Done!" : "Fill wells"}
                                         </button>
                                     </div>
                                 )}
@@ -333,16 +327,10 @@ function App() {
                             <CSVVisualizer file={file} />
                         </div>
                     )}
-                    {plate && (
+                    {plate && showPlate && (
                         <div className="results">
                             <h3>Well Plate Layout</h3>
                             <Plate wells={plate} />
-                        </div>
-                    )}
-                    {results && (
-                        <div className="results">
-                            <h3>Results</h3>
-                            <pre>{results}</pre>
                         </div>
                     )}
                     {!file && !results && (

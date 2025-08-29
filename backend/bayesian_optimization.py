@@ -8,6 +8,11 @@ import random
 def parse_columns(df, target_column):
     '''
     takes a pandas dataframe and returns a list of obsidian parameter objects for features.
+    args:
+        df: pandas dataframe of already run experiments
+        target_column: name of the target column
+    returns:
+        list of obsidian parameter objects for features
     '''
     params = []
     feature_columns = [col for col in df.columns if col != target_column]
@@ -19,6 +24,16 @@ def parse_columns(df, target_column):
     return params
 
 def bayesian_optimization(df, target_column, batch_size=96, fitted_model = None):
+    '''
+    Suggests a set of experiments to run in wells based of already run experiments
+    args:
+        df: pandas dataframe of already run experiments
+        target_column: name of the target column
+        batch_size: number of experiments to suggest
+        fitted_model: path to a fitted model
+    returns:
+        pandas dataframe of suggested experiments
+    '''
     params = parse_columns(df, target_column)
     X_space = ParamSpace(params)
     target = Target(target_column, aim='max')
@@ -35,6 +50,7 @@ def bayesian_optimization(df, target_column, batch_size=96, fitted_model = None)
 def bayesian_filler():
     '''
     Filler function that generates random 96 well dataframe
+    Sort the wells by yield for aesthetic purposes.
     '''
     dataframe = pd.DataFrame(columns=['catalyst','solvent','temperature','pressure_atm','concentration_M','time_h','pH','yield'])
     dataframe['catalyst'] = [random.choice(['Catalyst_1','Catalyst_2','Catalyst_3','Catalyst_4','Catalyst_5']) for _ in range(96)]
@@ -45,6 +61,7 @@ def bayesian_filler():
     dataframe['time_h'] = [random.uniform(1,24) for _ in range(96)]
     dataframe['pH'] = [random.uniform(1,14) for _ in range(96)]
     dataframe['yield'] = [random.uniform(0,100) for _ in range(96)]
+    dataframe.sort_values(by='yield', ascending=False, inplace=True)
     
     return dataframe
 

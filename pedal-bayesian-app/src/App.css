@@ -311,3 +311,88 @@ button:hover {
         transform: rotate(360deg);
     }
 }
+
+/* Histogram Styles */
+.histogram-container {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #0056b3;
+    background-color: #ffffff;
+}
+
+.histogram-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.histogram-header h4 {
+    margin: 0;
+    color: #0056b3;
+    font-size: 1rem;
+}
+
+.histogram-controls {
+    display: flex;
+    align-items: center;
+}
+
+.histogram-controls label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #0056b3;
+}
+
+.histogram-controls input {
+    margin: 0 0.5rem;
+    width: 100px;
+}
+
+.histogram-chart {
+    margin: 1rem 0;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bars-container {
+    border-bottom: 1px solid #0056b3;
+    border-left: 1px solid #0056b3;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.histogram-bar-container {
+    position: relative;
+    height: 100%;
+}
+
+.histogram-bar {
+    width: 80%;
+    margin: 0 auto;
+    transition: height 0.3s ease;
+}
+
+.histogram-bar:hover {
+    opacity: 0.8;
+}
+
+.bin-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0056b3;
+}
+
+.histogram-stats {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #0056b3;
+}

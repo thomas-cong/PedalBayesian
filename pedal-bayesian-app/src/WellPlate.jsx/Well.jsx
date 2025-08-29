@@ -5,7 +5,7 @@ const Well = ({ data, position }) => {
     const yieldValue = data && data.yield !== undefined ? data.yield : 0;
 
     // Calculate color based on yield value (0-100)
-    // Blue for low values, white for middle values, darker blue for high values
+    // binned instead of gradient
     const getWellColor = () => {
         if (yieldValue < 33) {
             return "#000080";

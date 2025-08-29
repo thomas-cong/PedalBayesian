@@ -10,9 +10,11 @@ CORS(app)
 WORKSPACE_DIR = os.path.join(os.path.dirname(__file__), 'workspace')
 os.makedirs(WORKSPACE_DIR, exist_ok=True)
 
+# store a global workspace file- only one file at a time, to design one plate at a time
 workspace_file = ''
 
 @app.route('/api/upload', methods=['POST'])
+# Uploads file and checks that it is parsable as a CSV
 def upload_file():
     global workspace_file
     if 'file' not in request.files:
@@ -28,9 +30,9 @@ def upload_file():
         return {'error': 'File must be a CSV file'}, 400
 
 @app.route('/api/fake-fill', methods=['POST'])
+# Dummy method to just generate random data for testing visualization
 def fill():
     result = bayesian_filler().to_json(orient='records')
-    print(result)
     return jsonify(result)
 
 # @app.route('/api/optimize', methods=['POST'])
